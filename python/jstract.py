@@ -1,5 +1,7 @@
 #!usr/bin/python3
 
+#tool for extracting js filenames from access.logs
+
 import re
 import sys
 
