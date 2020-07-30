@@ -1,2 +1,2 @@
 ### Buffer Overflow Methodology
-- - WORK IN PROGRESS - -
+## WORK IN PROGRESS
