@@ -25,3 +25,10 @@ MSF-nasm_shell
 Implement buffer + eip + shellcode + nops (Not this order, could be any)
 
 Nopsled generally 8/10bytes but play!
+
+
+##### Usefull commands 
+
+```
+i686-w64-mingw32-gcc 42341.c -o syncbreeze_exploit.exe -lws2_32
+```
