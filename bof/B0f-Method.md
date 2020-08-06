@@ -33,4 +33,6 @@ Nopsled generally 8/10bytes but play!
 i686-w64-mingw32-gcc 42341.c -o <exploit.exe> -lws2_32 //Compile a .exe on Kali.
 --
 wine <exploit.exe> // run .exe on Kali.
+--
+
 ```
