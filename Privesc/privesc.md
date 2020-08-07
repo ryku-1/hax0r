@@ -62,8 +62,15 @@ cat /etc/fstab // Check Mounting configs
 ```
 ###### Enumerating Drivers and Kernal Modules for Linux
 ```
-
+lsmod
 ---
+s/sbin
+---
+/sbin/modinfo <module> //How to view modules
+```
+###### SUID for Linux
+```
+find / -perm -u=s -type f 2>/dev/null
 ```
 ***
 ###### Basic Privesc Emumeration for Windows
@@ -119,6 +126,13 @@ mountvol
 ```
 ###### Enumerating Drivers and Kernal Modules for Windows
 ```
-
+driverquery.exe /v /fo csv | ConvertFrom-CSV | Select-Object 'Display Name', 'Start mod
+e', Path // Lists display name, start mode and path
 ---
+ Get-WmiObject Win32_PnPSignedDriver | Select-Object DeviceName, DriverVersion, Manufacturer | Where-Object {$_.DeviceName -like "*VMware*"} //Target specific drivers
+```
+###### AutoElevate Binaries for Windows
+```
+[powershell]
+reg query HKEY_CURRENT_USER
 ```
