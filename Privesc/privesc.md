@@ -26,8 +26,6 @@ ip a // ifconfig
 ---
 ss -anp // Active network connections
 ```
-
-
 ###### Enumerating Firewalls for Linux
 Need root for iptables but...
 ```
@@ -54,6 +52,15 @@ find / -writable -type d 2>/dev/null
 ---
 ```
 ###### Enumerating Unmounted Disks for Linux
+```
+mount // Show mounts
+---
+cat /etc/fstab // Check Mounting configs
+---
+/bin/lsblk  // View all available disks 
+---
+```
+###### Enumerating Drivers and Kernal Modules for Linux
 ```
 
 ---
@@ -106,7 +113,11 @@ accesschk.exe -uws "Everyone" "<Path to DIR>" // Will check for w-W files
 [powershell]
 Get-ChildItem "<PATH TO DIR>" -Recurse | Get-ACL | ?{$_.AccessToString -match "Everyone\sAllow\s\sModify"}
 ```
-###### Enumerating Unmounted Disks for Linux
+###### Enumerating Unmounted Disks for Windows
+```
+mountvol
+```
+###### Enumerating Drivers and Kernal Modules for Windows
 ```
 
 ---
