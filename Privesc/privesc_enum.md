@@ -136,3 +136,40 @@ e', Path // Lists display name, start mode and path
 [powershell]
 reg query HKEY_CURRENT_USER
 ```
+***
+#### The Automated Stuff
+###### Windows
+```
+windows-privesc-check2.exe // http://pentestmonkey.net/windows-privesc-check
+
+windows-privesc-check2.exe--dump -G Dump Groups 
+---
+windows-privesc-check2.exe --dump -G -H // Dump Groups & Shares
+---
+windows-privesc-check2.exe --dump -M -V // Dump password policy & privs for users and groups
+---
+windows-privesc-check2.exe -A // All files and Dirs
+--
+windows-privesc-check2.exe --pyshell // o.O 
+---
+```
+###### Linux 
+```
+./unix-privesc-check // http://pentestmonkey.net/tools/unix-privesc-check
+---
+./unix-privesc-check standard
+---
+./unix-privesc-check detailed 
+```
+##### Examples
+###### Windows
+```
+[Examples]
+
+whoami /groups // Look for Medium integrity level
+-
+net user admin NewPassword // Try set new password (Most likely will fail)
+-
+powershell.exe Start-Process cmd.exe -Verb runAs // Privesc
+
+```
