@@ -1,6 +1,6 @@
-##### Privilege Escalation
+##### Basic Privilege Escalation Enumeration
 
-###### Basic Privesc Emumeration for Linux
+###### Basic Privesc Enumeration for Linux
 ```
 whoami
 ---
