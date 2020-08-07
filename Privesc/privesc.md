@@ -50,9 +50,15 @@ dpkg -l
 ```
 ###### Enumerating R/W files for Linux
 ```
+find / -writable -type d 2>/dev/null
+---
+```
+###### Enumerating Unmounted Disks for Linux
+```
 
 ---
 ```
+***
 ###### Basic Privesc Emumeration for Windows
 ```
 whoami
@@ -93,6 +99,14 @@ wmic product get name, version, vendor // Info on installed apps
 wmic qfe get Caption, Description, HotFixID, InstalledOn // Full Sys updates
 ```
 ###### Enumerating R/W files for Windows
+```
+[Download accesschk.exe onto Target]
+accesschk.exe -uws "Everyone" "<Path to DIR>" // Will check for w-W files 
+---
+[powershell]
+Get-ChildItem "<PATH TO DIR>" -Recurse | Get-ACL | ?{$_.AccessToString -match "Everyone\sAllow\s\sModify"}
+```
+###### Enumerating Unmounted Disks for Linux
 ```
 
 ---
