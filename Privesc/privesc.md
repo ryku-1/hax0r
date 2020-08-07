@@ -39,6 +39,17 @@ cat /etc/iptables | grep 'iptables-save' // iptables-restore
 ```
 ###### Enumerating Scheduled Tasks for Linux
 ```
+ls -lah /etc/cron* //List Tasks
+---
+cat /etc/crontab // Inspect Carfully 
+```
+###### Enumerating installed applications for Linux
+```
+dpkg -l
+---
+```
+###### Enumerating R/W files for Linux
+```
 
 ---
 ```
@@ -72,3 +83,17 @@ netsh advfirewall show currentprofile // Current firewall profile
 netsh advfirewall firewall show rule name=all // Firewall rules
 ```
 ###### Enumerating Scheduled Tasks for Windows
+```
+schtasks /query /fo LIST /v // List Tasks
+```
+###### Enumerating installed applications for Windows
+```
+wmic product get name, version, vendor // Info on installed apps
+---
+wmic qfe get Caption, Description, HotFixID, InstalledOn // Full Sys updates
+```
+###### Enumerating R/W files for Windows
+```
+
+---
+```
