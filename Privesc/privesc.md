@@ -1,6 +1,6 @@
 ##### Privilege Escalation
 
-#####Linux
+###### Linux
 ```
 whoami
 ---
@@ -29,7 +29,7 @@ ss -anp // Active network connections
 
 ---
 ```
-#####Windows
+###### Windows
 ```
 whoami
 ---
