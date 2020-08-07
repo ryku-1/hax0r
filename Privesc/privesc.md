@@ -1,6 +1,6 @@
 ##### Privilege Escalation
 
-###### Linux
+###### Basic Privesc Emumeration for Linux
 ```
 whoami
 ---
@@ -25,11 +25,24 @@ ip a // ifconfig
 /sbin/route // Network map / Could be routel depending on distro
 ---
 ss -anp // Active network connections
+```
+
+
+###### Enumerating Firewalls for Linux
+Need root for iptables but...
+```
+cat /etc/iptables // Check for this 
 ---
+cat /etc/iptables-backup
+---
+cat /etc/iptables | grep 'iptables-save' // iptables-restore
+```
+###### Enumerating Scheduled Tasks for Linux
+```
 
 ---
 ```
-###### Windows
+###### Basic Privesc Emumeration for Windows
 ```
 whoami
 ---
@@ -51,7 +64,11 @@ netstat -ano // Veiw active network connections
 a = all active TCP connection
 n = ip/ports
 o = PID
----
-
----
 ```
+###### Enumerating Firewalls for Windows
+```
+netsh advfirewall show currentprofile // Current firewall profile
+---
+netsh advfirewall firewall show rule name=all // Firewall rules
+```
+###### Enumerating Scheduled Tasks for Windows
