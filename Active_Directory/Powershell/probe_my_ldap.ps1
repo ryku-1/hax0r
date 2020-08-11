@@ -15,3 +15,17 @@ $Searcher = New-Object System.DirectoryServices.DirectorySearche([ADSI]$SearchSt
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 
 $Searcher.SearchRoot = $objDomain
+
+$Searcher.filter="Admins" ##Change this
+
+$Result = $Searcher.FindAll()
+
+Foreach($obj in $Result)
+{
+    Foreach($prop in $obj.Properties)
+    {
+        $prop
+    }
+
+    Write-Host "*_-&*>._-&*_-&*>._-&*_-&*>._-&"
+}
