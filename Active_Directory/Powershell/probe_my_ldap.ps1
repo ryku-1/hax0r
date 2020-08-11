@@ -1,31 +1,26 @@
-$domainObj = [System.Directory.ActiveDirectory]::GetCurrentDomain()
+$domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 
-$PDC = ($domainObj.PdcRoleOwner).name
+$PDC = ($domainObj.PdcRoleOwner).Name
 
 $SearchString = "LDAP://"
 
 $SearchString += $PDC + "/"
- 
-$DistinguishedName = "DC=$ ($domainObj.Name.Replace('.', ',DC='))"
 
-$SearchString = $DistinguishedName
+$DistinguishedName = "DC=$($domainObj.Name.Replace('.', ',DC='))"
 
-$Searcher = New-Object System.DirectoryServices.DirectorySearche([ADSI]$SearchString)
+$SearchString += $DistinguishedName
+
+$Searcher = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$SearchString)
 
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 
 $Searcher.SearchRoot = $objDomain
 
-$Searcher.filter="Admins" ##Change this
+$Searcher.filter="(objectClass=Group)"
 
 $Result = $Searcher.FindAll()
 
 Foreach($obj in $Result)
 {
-    Foreach($prop in $obj.Properties)
-    {
-        $prop
-    }
-
-    Write-Host "*_-&*>._-&*_-&*>._-&*_-&*>._-&"
+    $obj.Properties.name
 }
