@@ -1,3 +1,5 @@
+#!usr/bin/python
+
 import os 
 import sys
 import lib
@@ -9,21 +11,37 @@ li = 25 * '-'
 
 TARGET = sys.argv[1]
  
-USAGE = 'python AutoFingers.py <option> <ip>'
+
+USAGE = '[*] python AuT0Enum.py <all/dir/service/smtp/smb> <ip> '
+
 
 def service_scan():
-  print li
+	print li
 
 	if len(sys.argv) != 2:
 		print USAGE
 	else:
 		os.system('nmap -sV -sC -oN n1.txt' + TARGET)
 		
+
 service_scan()
 
-def dirscan()
+class Program(object):
+    def __init__(self):
+        self.script_path = os.path.dirname(os.path.realpath(__file__))
+        
+        self.arguments = ArgumentParser(self.script_path)
+        
+        if self.arguments.clean_view:
+            self.output = PrintOutput()
+        else:
+            self.output = CLIOutput()
+            
+        self.controller = Controller(self.script_path, self.arguments, self.output)
 
 
+if __name__ == "__main__":
+    main = Program()
 
 ########################### phesdo #################################################
 ##lineout = 25 * '-'
