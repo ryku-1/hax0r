@@ -9,39 +9,44 @@ from lib.output import *
 
 li = 25 * '-'
 
-TARGET = sys.argv[1]
+target = sys.argv[2]
+username = sys.argv[3]
  
+USAGE = '\n[*] python AutoEnum.py <all/dir/serv/smtp/smb> <ip> '
 
-USAGE = '[*] python AuT0Enum.py <all/dir/service/smtp/smb> <ip> '
-
-
-def service_scan():
-	print li
-
-	if len(sys.argv) != 2:
-		print USAGE
-	else:
-		os.system('nmap -sV -sC -oN n1.txt' + TARGET)
-		
-
-service_scan()
-
-class Program(object):
-    def __init__(self):
-        self.script_path = os.path.dirname(os.path.realpath(__file__))
-        
-        self.arguments = ArgumentParser(self.script_path)
-        
-        if self.arguments.clean_view:
-            self.output = PrintOutput()
-        else:
-            self.output = CLIOutput()
-            
-        self.controller = Controller(self.script_path, self.arguments, self.output)
-
+# Handles Exits
+def signal_handler(signal, frame)
+	print '\nThe Program Was Exit Using Ctrl+C!!'
+	sys.exit()
+signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == "__main__":
     main = Program()
+
+def service_scan():
+	if type == 'serv':
+		try:
+		print '\n[*] Starting Service Scan'
+		os.system('nmap -sV -sC -oN n1.txt' + TARGET)
+		
+
+
+def call_verfify_function( user ):
+	if type == 'smtp'
+		print '\n[*] Running SMTP scan'
+		s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		connect = s.connect((target,25))
+		banner = s.recv(1024).decode()
+		print('[*] SMTP BANNER: ', banner)
+		s.send(b'VRFY %s\n' % str(user).encode())
+		results = s.recv(1024).decode()
+		print('[*]VRFY USER:', results)
+		s.close()
+		return
+
+with open(username , 'r') as file:
+	for user in file.readlines():
+		call_verfify_function(user)
 
 ########################### phesdo #################################################
 ##lineout = 25 * '-'
