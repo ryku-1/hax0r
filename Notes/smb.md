@@ -20,6 +20,7 @@ nbtscan 192.168.1.0/24
  Fingerprinting
  ```
  smbclient -L //192.168.1.100 
+ smbclient --list //ip -U 'username'
  ```
  
 Open shares
