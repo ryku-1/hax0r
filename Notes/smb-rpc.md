@@ -1,4 +1,4 @@
-##### SMB Enumeration   
+##### SMB & RPC Enumeration   
 
 ```
 smbclient -L //<IP>
@@ -9,6 +9,8 @@ nmblookup -A target
 smbclient //MOUNT/share -I target -N
 
 rpcclient -U "" target
+
+python3 lookupsid.py user:pass@ip //impacket
 
 enum4linux target
 
