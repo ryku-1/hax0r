@@ -44,7 +44,8 @@ cat /etc/crontab // Inspect Carfully
 ```
 ###### Enumerating installed applications for Linux
 ```
-dpkg -l
+dpkg -l | grep -i APP(ie.pam)
+
 ---
 ```
 ###### Enumerating R/W files for Linux
@@ -72,6 +73,10 @@ s/sbin
 ###### SUID for Linux
 ```
 find / -perm -u=s -type f 2>/dev/null
+```
+###### Find files and groups
+```
+find /home -f -printf "%f\t%p\t%u\t%g\t%m\n" 2> /dev/null | colum -t
 ```
 ***
 ###### Basic Privesc Emumeration for Windows
