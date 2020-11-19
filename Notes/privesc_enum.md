@@ -76,7 +76,7 @@ find / -perm -u=s -type f 2>/dev/null
 ```
 ###### Find files and groups
 ```
-find /home -f -printf "%f\t%p\t%u\t%g\t%m\n" 2> /dev/null | colum -t
+find /home -printf "%f\t%p\t%u\t%g\t%m\n" 2>/dev/null|column -t
 ```
 ***
 ###### Basic Privesc Emumeration for Windows
