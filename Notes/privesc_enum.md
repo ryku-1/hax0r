@@ -2,8 +2,8 @@
 
 ###### Basic Privesc Enumeration for Linux
 ```
-whoami
-whoami /priv // Privileges info
+whoami /priv
+whoami // Privileges info
 ---
 id
 ---
