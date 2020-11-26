@@ -82,6 +82,7 @@ find /home -printf "%f\t%p\t%u\t%g\t%m\n" 2>/dev/null|column -t
 ###### Basic Privesc Emumeration for Windows
 ```
 whoami
+whoami /priv
 ---
 net user // Discover other users
 ---
