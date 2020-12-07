@@ -118,3 +118,14 @@ int main() {
  Compile with gcc -o shellin shellin.c
 
 ```
+A list of tools
+```
+RSG - Reverse shell generator, github. (Check it out if you are really stuck)
+LinEnum.sh
+Linux Smart Enumeration (lse.sh)
+LinPeas.sh
+Linuxprivchecker
+BeRoot
+unix-privesc-check
+```
+
