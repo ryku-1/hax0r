@@ -110,7 +110,7 @@ except:
 Running exploit.py, EIP should now be equal to 42424242 (hex value of “BBBB”). I now control EIP!
 
 Now that EIP has been controlled, it is critical to gather a list of bad characters, when the shellcode is generated any invalid characters could
-stop the payload from being read through the application. 
+stop the payload, as it processes byte after byte, if it reaches an bad character it will truncate the code, rendering the payload useless.  
 
 Finding bad characters with !mona. '\x00' is always considered a bad character as it will truncate shellcode when executed.
 
