@@ -272,7 +272,24 @@ script will pop shell when the task is complete.
 ```
 ###### Installed Apps
 ```
+Enumerate all running programs
+
+- tasklist /v
+- seatbelt.exe NonStandardProcesses
+
 ```
+###### Port Forwarding
+```
+Check if root user login in enabled
+
+sudo vim /etc/ssh/sshd_config
+ - permit root login yes
+ 
+plink.exe               kali-localtarget-remote-port     
+ -  .\plink.exe root@kali -R 445:127.0.0.1:445
+ 
+```
+
 
 ###### Enumerating Unmounted Disks for Windows
 ```
