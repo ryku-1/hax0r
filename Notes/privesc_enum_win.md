@@ -107,7 +107,22 @@ Modidy a services configuatiion rather than the service
 
 Verify the permissions
 
-powershell -exec
+- powershell -exec bypass
+
+- PS: Get-Acl HKLM:\System\CurrentControlSet\Services\<regsvc> | Format-List 
+
+- .\accesschk.exe \accepeula -uvwqk HKLM:\System\CurrentControlSet\Services\<regsvc>
+
+Check to see if it can be start/stop
+
+- .\accesschk.exe \accepeula -ucqv user <regsvc>
+
+Check current values in the registry entry (i.e look for some sort of path)
+
+- reg query HKLM\System\CurrentControlSet\Services\regsvc
+
+
+
 
 ```
 
